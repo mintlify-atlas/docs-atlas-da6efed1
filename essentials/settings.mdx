@@ -1,318 +1,338 @@
 ---
-title: 'Global Settings'
-description: 'Mintlify gives you complete control over the look and feel of your documentation using the docs.json file'
-icon: 'gear'
+title: 'Settings'
+description: 'Configure your documentation site with docs.json'
 ---
 
-Every Mintlify site needs a `docs.json` file with the core configuration settings. Learn more about the [properties](#properties) below.
+Every Mintlify site needs a `docs.json` file with the core configuration settings. This file controls your site's appearance, navigation structure, branding, and functionality.
 
-## Properties
+## Basic Configuration
 
-<ResponseField name="name" type="string" required>
-Name of your project. Used for the global title.
+<ParamField path="name" type="string" required>
+  Name of your project. Used for the global title.
 
-Example: `mintlify`
-
-</ResponseField>
-
-<ResponseField name="navigation" type="Navigation[]" required>
-  An array of groups with all the pages within that group
-  <Expandable title="Navigation">
-    <ResponseField name="group" type="string">
-    The name of the group.
-
-    Example: `Settings`
-
-    </ResponseField>
-    <ResponseField name="pages" type="string[]">
-    The relative paths to the markdown files that will serve as pages.
-
-    Example: `["customization", "page"]`
-
-    </ResponseField>
-
-  </Expandable>
-</ResponseField>
-
-<ResponseField name="logo" type="string or object">
-  Path to logo image or object with path to "light" and "dark" mode logo images
-  <Expandable title="Logo">
-    <ResponseField name="light" type="string">
-      Path to the logo in light mode
-    </ResponseField>
-    <ResponseField name="dark" type="string">
-      Path to the logo in dark mode
-    </ResponseField>
-    <ResponseField name="href" type="string" default="/">
-      Where clicking on the logo links you to
-    </ResponseField>
-  </Expandable>
-</ResponseField>
-
-<ResponseField name="favicon" type="string">
-  Path to the favicon image
-</ResponseField>
-
-<ResponseField name="colors" type="Colors">
-  Hex color codes for your global theme
-  <Expandable title="Colors">
-    <ResponseField name="primary" type="string" required>
-      The primary color. Used for most often for highlighted content, section
-      headers, accents, in light mode
-    </ResponseField>
-    <ResponseField name="light" type="string">
-      The primary color for dark mode. Used for most often for highlighted
-      content, section headers, accents, in dark mode
-    </ResponseField>
-    <ResponseField name="dark" type="string">
-      The primary color for important buttons
-    </ResponseField>
-    <ResponseField name="background" type="object">
-      The color of the background in both light and dark mode
-      <Expandable title="Object">
-        <ResponseField name="light" type="string" required>
-          The hex color code of the background in light mode
-        </ResponseField>
-        <ResponseField name="dark" type="string" required>
-          The hex color code of the background in dark mode
-        </ResponseField>
-      </Expandable>
-    </ResponseField>
-  </Expandable>
-</ResponseField>
-
-<ResponseField name="topbarLinks" type="TopbarLink[]">
-  Array of `name`s and `url`s of links you want to include in the topbar
-  <Expandable title="TopbarLink">
-    <ResponseField name="name" type="string">
-    The name of the button.
-
-    Example: `Contact us`
-    </ResponseField>
-    <ResponseField name="url" type="string">
-    The url once you click on the button. Example: `https://mintlify.com/docs`
-    </ResponseField>
-
-  </Expandable>
-</ResponseField>
-
-<ResponseField name="topbarCtaButton" type="Call to Action">
-  <Expandable title="Topbar Call to Action">
-    <ResponseField name="type" type={'"link" or "github"'} default="link">
-    Link shows a button. GitHub shows the repo information at the url provided including the number of GitHub stars.
-    </ResponseField>
-    <ResponseField name="url" type="string">
-    If `link`: What the button links to.
-    
-    If `github`: Link to the repository to load GitHub information from.
-    </ResponseField>
-    <ResponseField name="name" type="string">
-    Text inside the button. Only required if `type` is a `link`.
-    </ResponseField>
-
-  </Expandable>
-</ResponseField>
-
-<ResponseField name="versions" type="string[]">
-  Array of version names. Only use this if you want to show different versions
-  of docs with a dropdown in the navigation bar.
-</ResponseField>
-
-<ResponseField name="anchors" type="Anchor[]">
-  An array of the anchors, includes the `icon`, `color`, and `url`.
-  <Expandable title="Anchor">
-    <ResponseField name="icon" type="string">
-    The [Font Awesome](https://fontawesome.com/search?q=heart) icon used to feature the anchor.
-
-    Example: `comments`
-    </ResponseField>
-    <ResponseField name="name" type="string">
-    The name of the anchor label.
-
-    Example: `Community`
-    </ResponseField>
-    <ResponseField name="url" type="string">
-      The start of the URL that marks what pages go in the anchor. Generally, this is the name of the folder you put your pages in.
-    </ResponseField>
-    <ResponseField name="color" type="string">
-      The hex color of the anchor icon background. Can also be a gradient if you pass an object with the properties `from` and `to` that are each a hex color.
-    </ResponseField>
-    <ResponseField name="version" type="string">
-      Used if you want to hide an anchor until the correct docs version is selected.
-    </ResponseField>
-    <ResponseField name="isDefaultHidden" type="boolean" default="false">
-      Pass `true` if you want to hide the anchor until you directly link someone to docs inside it.
-    </ResponseField>
-    <ResponseField name="iconType" default="duotone" type="string">
-      One of: "brands", "duotone", "light", "sharp-solid", "solid", or "thin"
-    </ResponseField>
-
-  </Expandable>
-</ResponseField>
-
-<ResponseField name="topAnchor" type="Object">
-  Override the default configurations for the top-most anchor.
-  <Expandable title="Object">
-    <ResponseField name="name" default="Documentation" type="string">
-      The name of the top-most anchor
-    </ResponseField>
-    <ResponseField name="icon" default="book-open" type="string">
-      Font Awesome icon.
-    </ResponseField>
-    <ResponseField name="iconType" default="duotone" type="string">
-      One of: "brands", "duotone", "light", "sharp-solid", "solid", or "thin"
-    </ResponseField>
-  </Expandable>
-</ResponseField>
-
-<ResponseField name="tabs" type="Tabs[]">
-  An array of navigational tabs.
-  <Expandable title="Tabs">
-    <ResponseField name="name" type="string">
-      The name of the tab label.
-    </ResponseField>
-    <ResponseField name="url" type="string">
-      The start of the URL that marks what pages go in the tab. Generally, this
-      is the name of the folder you put your pages in.
-    </ResponseField>
-  </Expandable>
-</ResponseField>
-
-<ResponseField name="api" type="API">
-  Configuration for API settings. Learn more about API pages at [API Components](/api-playground/demo).
-  <Expandable title="API">
-    <ResponseField name="baseUrl" type="string">
-      The base url for all API endpoints. If `baseUrl` is an array, it will enable for multiple base url
-      options that the user can toggle.
-    </ResponseField>
-
-    <ResponseField name="auth" type="Auth">
-      <Expandable title="Auth">
-        <ResponseField name="method" type='"bearer" | "basic" | "key"'>
-          The authentication strategy used for all API endpoints.
-        </ResponseField>
-        <ResponseField name="name" type="string">
-        The name of the authentication parameter used in the API playground.
-
-        If method is `basic`, the format should be `[usernameName]:[passwordName]`
-        </ResponseField>
-        <ResponseField name="inputPrefix" type="string">
-        The default value that's designed to be a prefix for the authentication input field.
-
-        E.g. If an `inputPrefix` of `AuthKey` would inherit the default input result of the authentication field as `AuthKey`.
-        </ResponseField>
-      </Expandable>
-    </ResponseField>
-
-    <ResponseField name="playground" type="Playground">
-      Configurations for the API playground
-
-      <Expandable title="Playground">
-        <ResponseField name="mode" default="show" type='"show" | "simple" | "hide"'>
-          Whether the playground is showing, hidden, or only displaying the endpoint with no added user interactivity `simple`
-
-          Learn more at the [playground guides](/api-playground/demo)
-        </ResponseField>
-      </Expandable>
-    </ResponseField>
-
-    <ResponseField name="maintainOrder" type="boolean">
-      Enabling this flag ensures that key ordering in OpenAPI pages matches the key ordering defined in the OpenAPI file.
-
-      <Warning>This behavior will soon be enabled by default, at which point this field will be deprecated.</Warning>
-    </ResponseField>
-
-  </Expandable>
-</ResponseField>
-
-<ResponseField name="openapi" type="string | string[]">
-  A string or an array of strings of URL(s) or relative path(s) pointing to your
-  OpenAPI file.
-  
-  Examples:
-  <CodeGroup>
-    ```json Absolute
-    "openapi": "https://example.com/openapi.json"
-    ```
-    ```json Relative
-    "openapi": "/openapi.json"
-    ```
-    ```json Multiple
-    "openapi": ["https://example.com/openapi1.json", "/openapi2.json", "/openapi3.json"]
-    ```
-  </CodeGroup>
-
-</ResponseField>
-
-<ResponseField name="footerSocials" type="FooterSocials">
-  An object of social media accounts where the key:property pair represents the social media platform and the account url.
-  
-  Example: 
   ```json
-  {
-    "x": "https://x.com/mintlify",
-    "website": "https://mintlify.com"
-  }
+  "name": "Mint Starter Kit"
   ```
-  <Expandable title="FooterSocials">
-    <ResponseField name="[key]" type="string">
-    One of the following values `website`, `facebook`, `x`, `discord`, `slack`, `github`, `linkedin`, `instagram`, `hacker-news`
-    
-    Example: `x`
-    </ResponseField>
-    <ResponseField name="property" type="string">
-    The URL to the social platform.
-    
-    Example: `https://x.com/mintlify`
-    </ResponseField>
-  </Expandable>
-</ResponseField>
+</ParamField>
 
-<ResponseField name="feedback" type="Feedback">
-  Configurations to enable feedback buttons
+<ParamField path="theme" type="string">
+  The theme for your documentation. Common value is `"mint"`.
 
-  <Expandable title="Feedback">
-    <ResponseField name="suggestEdit" type="boolean" default="false">
-    Enables a button to allow users to suggest edits via pull requests
-    </ResponseField>
-    <ResponseField name="raiseIssue" type="boolean" default="false">
-    Enables a button to allow users to raise an issue about the documentation
-    </ResponseField>
-  </Expandable>
-</ResponseField>
+  ```json
+  "theme": "mint"
+  ```
+</ParamField>
 
-<ResponseField name="modeToggle" type="ModeToggle">
-  Customize the dark mode toggle.
-  <Expandable title="ModeToggle">
-    <ResponseField name="default" type={'"light" or "dark"'}>
-      Set if you always want to show light or dark mode for new users. When not
-      set, we default to the same mode as the user's operating system.
-    </ResponseField>
-    <ResponseField name="isHidden" type="boolean" default="false">
-      Set to true to hide the dark/light mode toggle. You can combine `isHidden` with `default` to force your docs to only use light or dark mode. For example:
-      
-      <CodeGroup>
-      ```json Only Dark Mode
-      "modeToggle": {
-        "default": "dark",
-        "isHidden": true
+## Branding
+
+### Logo
+
+<ParamField path="logo" type="string | object">
+  Path to logo image or object with paths to light and dark mode logo images.
+
+  <Accordion title="Logo Configuration">
+    <ParamField path="light" type="string">
+      Path to the logo in light mode
+    </ParamField>
+    <ParamField path="dark" type="string">
+      Path to the logo in dark mode
+    </ParamField>
+    <ParamField path="href" type="string" default="/">
+      Where clicking on the logo links you to
+    </ParamField>
+  </Accordion>
+</ParamField>
+
+```json Example
+"logo": {
+  "light": "/logo/light.svg",
+  "dark": "/logo/dark.svg"
+}
+```
+
+### Favicon
+
+<ParamField path="favicon" type="string">
+  Path to the favicon image displayed in browser tabs.
+
+  ```json
+  "favicon": "/favicon.svg"
+  ```
+</ParamField>
+
+### Colors
+
+<ParamField path="colors" type="object" required>
+  Hex color codes for your global theme. These colors are used throughout your documentation for accents, highlights, and interactive elements.
+</ParamField>
+
+<CodeGroup>
+```json Basic Colors
+"colors": {
+  "primary": "#16A34A",
+  "light": "#07C983",
+  "dark": "#15803D"
+}
+```
+
+```json With Background
+"colors": {
+  "primary": "#16A34A",
+  "light": "#07C983",
+  "dark": "#15803D",
+  "background": {
+    "light": "#ffffff",
+    "dark": "#0a0a0a"
+  }
+}
+```
+</CodeGroup>
+
+<Accordion title="Color Properties">
+  <ParamField path="primary" type="string" required>
+    The primary color used for highlighted content, section headers, and accents in light mode
+  </ParamField>
+  <ParamField path="light" type="string">
+    The primary color for dark mode
+  </ParamField>
+  <ParamField path="dark" type="string">
+    The primary color for important buttons
+  </ParamField>
+  <ParamField path="background" type="object">
+    Custom background colors for light and dark mode
+  </ParamField>
+</Accordion>
+
+## Navigation Bar
+
+### Navbar Links
+
+<ParamField path="navbar" type="object">
+  Configure the navigation bar at the top of your documentation.
+</ParamField>
+
+```json
+"navbar": {
+  "links": [
+    {
+      "label": "Support",
+      "href": "mailto:hi@mintlify.com"
+    }
+  ],
+  "primary": {
+    "type": "button",
+    "label": "Dashboard",
+    "href": "https://dashboard.mintlify.com"
+  }
+}
+```
+
+<Accordion title="Navbar Configuration">
+  <ParamField path="links" type="array">
+    Array of link objects with `label` and `href` properties
+  </ParamField>
+  <ParamField path="primary" type="object">
+    Primary call-to-action button configuration with `type`, `label`, and `href`
+  </ParamField>
+</Accordion>
+
+<Tip>
+  The primary button appears prominently in your navbar and can be styled as a button or link to external resources like your dashboard or app.
+</Tip>
+
+## Footer
+
+<ParamField path="footer" type="object">
+  Configure footer settings including social media links.
+</ParamField>
+
+```json
+"footer": {
+  "socials": {
+    "x": "https://x.com/mintlify",
+    "github": "https://github.com/mintlify",
+    "linkedin": "https://linkedin.com/company/mintlify"
+  }
+}
+```
+
+<Note>
+  Supported social platforms include: `website`, `facebook`, `x`, `discord`, `slack`, `github`, `linkedin`, `instagram`, and `hacker-news`.
+</Note>
+
+## API Configuration
+
+<ParamField path="api" type="object">
+  Configuration for API settings and playground behavior.
+</ParamField>
+
+<Accordion title="API Settings">
+  <ParamField path="baseUrl" type="string | string[]">
+    The base URL for all API endpoints. Can be an array to enable multiple base URL options
+  </ParamField>
+  <ParamField path="auth" type="object">
+    Authentication configuration with `method` (bearer, basic, or key), `name`, and optional `inputPrefix`
+  </ParamField>
+  <ParamField path="playground" type="object">
+    Playground settings with `mode` option: `"show"`, `"simple"`, or `"hide"`
+  </ParamField>
+  <ParamField path="maintainOrder" type="boolean">
+    Ensures key ordering in OpenAPI pages matches the OpenAPI file definition
+  </ParamField>
+</Accordion>
+
+<ParamField path="openapi" type="string | string[]">
+  URL(s) or relative path(s) pointing to your OpenAPI specification file.
+</ParamField>
+
+<CodeGroup>
+```json Absolute URL
+"openapi": "https://example.com/openapi.json"
+```
+
+```json Relative Path
+"openapi": "/openapi.json"
+```
+
+```json Multiple Files
+"openapi": [
+  "https://example.com/openapi1.json",
+  "/openapi2.json",
+  "/openapi3.json"
+]
+```
+</CodeGroup>
+
+## Advanced Features
+
+### Mode Toggle
+
+<ParamField path="modeToggle" type="object">
+  Customize the dark mode toggle behavior.
+</ParamField>
+
+<CodeGroup>
+```json Dark Mode Only
+"modeToggle": {
+  "default": "dark",
+  "isHidden": true
+}
+```
+
+```json Light Mode Only
+"modeToggle": {
+  "default": "light",
+  "isHidden": true
+}
+```
+
+```json Default to System
+"modeToggle": {
+  "default": "system"
+}
+```
+</CodeGroup>
+
+### Feedback Buttons
+
+<ParamField path="feedback" type="object">
+  Enable feedback buttons to allow users to suggest edits or raise issues.
+</ParamField>
+
+```json
+"feedback": {
+  "suggestEdit": true,
+  "raiseIssue": true
+}
+```
+
+### Background Image
+
+<ParamField path="backgroundImage" type="string">
+  A background image to be displayed behind every page.
+
+  ```json
+  "backgroundImage": "/background.png"
+  ```
+</ParamField>
+
+### Versions
+
+<ParamField path="versions" type="string[]">
+  Array of version names to show different versions of docs with a dropdown in the navigation bar.
+
+  ```json
+  "versions": ["v2.0", "v1.0"]
+  ```
+</ParamField>
+
+## Contextual Features
+
+<ParamField path="contextual" type="object">
+  Configure contextual menu options for code blocks and content.
+</ParamField>
+
+```json
+"contextual": {
+  "options": [
+    "copy",
+    "view",
+    "chatgpt",
+    "claude",
+    "perplexity",
+    "mcp",
+    "cursor",
+    "vscode"
+  ]
+}
+```
+
+<Tip>
+  Contextual options provide quick actions for users to interact with your documentation, like copying code or opening in their preferred AI assistant.
+</Tip>
+
+## Complete Example
+
+Here's a complete `docs.json` configuration from the Mintlify Starter Kit:
+
+```json
+{
+  "$schema": "https://mintlify.com/docs.json",
+  "theme": "mint",
+  "name": "Mint Starter Kit",
+  "colors": {
+    "primary": "#16A34A",
+    "light": "#07C983",
+    "dark": "#15803D"
+  },
+  "favicon": "/favicon.svg",
+  "logo": {
+    "light": "/logo/light.svg",
+    "dark": "/logo/dark.svg"
+  },
+  "navbar": {
+    "links": [
+      {
+        "label": "Support",
+        "href": "mailto:hi@mintlify.com"
       }
-      ```
+    ],
+    "primary": {
+      "type": "button",
+      "label": "Dashboard",
+      "href": "https://dashboard.mintlify.com"
+    }
+  },
+  "footer": {
+    "socials": {
+      "x": "https://x.com/mintlify",
+      "github": "https://github.com/mintlify",
+      "linkedin": "https://linkedin.com/company/mintlify"
+    }
+  }
+}
+```
 
-      ```json Only Light Mode
-      "modeToggle": {
-        "default": "light",
-        "isHidden": true
-      }
-      ```
-      </CodeGroup>
-
-    </ResponseField>
-
-  </Expandable>
-</ResponseField>
-
-<ResponseField name="backgroundImage" type="string">
-  A background image to be displayed behind every page. See example with
-  [Infisical](https://infisical.com/docs) and [FRPC](https://frpc.io).
-</ResponseField>
+<Note>
+  For complete navigation configuration, see the [Navigation](/essentials/navigation) guide.
+</Note>

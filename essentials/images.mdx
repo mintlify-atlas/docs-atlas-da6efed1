@@ -1,59 +1,264 @@
 ---
-title: 'Images and embeds'
-description: 'Add image, video, and other HTML elements'
-icon: 'image'
+title: 'Images & Media'
+description: 'Add images, videos, and other media to your documentation'
 ---
 
-<img
-  style={{ borderRadius: '0.5rem' }}
-  src="https://mintlify-assets.b-cdn.net/bigbend.jpg"
-/>
+Enhance your documentation with images, videos, and other media elements to create engaging, visual content.
 
-## Image
+## Adding Images
 
-### Using Markdown
+### Using Markdown Syntax
 
-The [markdown syntax](https://www.markdownguide.org/basic-syntax/#images) lets you add images using the following code
+The simplest way to add an image is with standard Markdown:
 
 ```md
-![title](/path/image.jpg)
+![Alt text description](/images/screenshot.png)
 ```
 
-Note that the image file size must be less than 5MB. Otherwise, we recommend hosting on a service like [Cloudinary](https://cloudinary.com/) or [S3](https://aws.amazon.com/s3/). You can then use that URL and embed.
+The alt text is important for accessibility and SEO. Describe what the image shows.
 
-### Using embeds
+<Note>
+Image files must be less than 5MB. For larger files, use a CDN like [Cloudinary](https://cloudinary.com/) or [S3](https://aws.amazon.com/s3/).
+</Note>
 
-To get more customizability with images, you can also use [embeds](/writing-content/embed) to add images
+### Using HTML for More Control
+
+For additional styling options, use HTML `<img>` tags:
 
 ```html
-<img height="200" src="/path/image.jpg" />
+<img height="200" src="/images/screenshot.png" alt="Dashboard screenshot" />
 ```
 
-## Embeds and HTML elements
+You can add inline styles for custom sizing and styling:
 
+```html
+<img
+  src="/images/screenshot.png"
+  alt="Dashboard screenshot"
+  style={{ borderRadius: '0.5rem', maxWidth: '600px' }}
+/>
+```
+
+## Frame Component
+
+Wrap images in the `<Frame>` component for consistent styling:
+
+<Frame>
+  <img src="https://mintlify-assets.b-cdn.net/bigbend.jpg" alt="Big Bend landscape" />
+</Frame>
+
+```mdx
+<Frame>
+  <img src="/images/feature.png" alt="Feature screenshot" />
+</Frame>
+```
+
+The Frame component adds:
+- Consistent border radius
+- Subtle shadows
+- Responsive sizing
+- Light/dark mode support
+
+### Frame with Captions
+
+Add context to images with captions:
+
+<Frame caption="The main dashboard showing real-time analytics">
+  <img src="https://mintlify-assets.b-cdn.net/bigbend.jpg" alt="Analytics dashboard" />
+</Frame>
+
+```mdx
+<Frame caption="The main dashboard showing real-time analytics">
+  <img src="/images/dashboard.png" alt="Analytics dashboard" />
+</Frame>
+```
+
+## Image Organization
+
+Store images in organized directories:
+
+```
+/images/
+├── screenshots/
+│   ├── dashboard.png
+│   └── settings.png
+├── diagrams/
+│   ├── architecture.svg
+│   └── workflow.png
+└── logos/
+    ├── logo.svg
+    └── icon.png
+```
+
+<Tip>
+Use descriptive filenames like `checkout-flow-step-2.png` instead of generic names like `image1.png`. This improves organization and SEO.
+</Tip>
+
+## Videos
+
+### Embedded Videos
+
+Embed videos from YouTube, Vimeo, or Loom using iframes:
+
+```html
 <iframe
   width="560"
   height="315"
-  src="https://www.youtube.com/embed/4KzFe50RQkQ"
-  title="YouTube video player"
+  src="https://www.youtube.com/embed/VIDEO_ID"
+  title="Video title"
   frameBorder="0"
   allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
   allowFullScreen
   style={{ width: '100%', borderRadius: '0.5rem' }}
 ></iframe>
-
-<br />
-
-<Tip>
-
-Mintlify supports [HTML tags in Markdown](https://www.markdownguide.org/basic-syntax/#html). This is helpful if you prefer HTML tags to Markdown syntax, and lets you create documentation with infinite flexibility.
-
-</Tip>
-
-### iFrames
-
-Loads another HTML page within the document. Most commonly used for embedding videos.
-
-```html
-<iframe src="https://www.youtube.com/embed/4KzFe50RQkQ"> </iframe>
 ```
+
+### Video Component
+
+Use Mintlify's Video component for better integration:
+
+```mdx
+<Video src="https://www.youtube.com/embed/VIDEO_ID" />
+```
+
+Or with custom sizing:
+
+```mdx
+<Frame>
+  <Video src="https://www.youtube.com/embed/VIDEO_ID" />
+</Frame>
+```
+
+## Image Best Practices
+
+<AccordionGroup>
+  <Accordion title="Optimize image sizes" icon="gauge">
+    - Use appropriate dimensions (don't upload 4K images for small thumbnails)
+    - Compress images with tools like [TinyPNG](https://tinypng.com/)
+    - Use modern formats like WebP when possible
+    - Keep images under 5MB or use a CDN
+  </Accordion>
+
+  <Accordion title="Use descriptive alt text" icon="text">
+    - Describe what the image shows, not just "screenshot"
+    - Include relevant keywords naturally
+    - Keep it concise but informative
+    - Example: "User dashboard showing analytics graphs and recent activity"
+  </Accordion>
+
+  <Accordion title="Choose the right format" icon="image">
+    - **PNG**: Screenshots, images with text, transparent backgrounds
+    - **JPG**: Photos, images with many colors
+    - **SVG**: Logos, icons, diagrams (scalable)
+    - **GIF**: Simple animations (use sparingly)
+    - **WebP**: Modern format with better compression
+  </Accordion>
+
+  <Accordion title="Support light and dark modes" icon="moon">
+    - Test images in both themes
+    - Use transparent backgrounds when possible
+    - Consider providing theme-specific versions
+    - Avoid pure white or black backgrounds
+  </Accordion>
+</AccordionGroup>
+
+## External Images
+
+Reference images from CDNs or external sources:
+
+```md
+![Product screenshot](https://cdn.example.com/images/product.png)
+```
+
+<Warning>
+External images may break if the source URL changes. For critical images, host them in your repository.
+</Warning>
+
+## Diagrams and Charts
+
+For technical diagrams, consider:
+
+- **SVG files**: Scalable and crisp at any size
+- **Mermaid diagrams**: Create diagrams with code (check Mintlify's Mermaid support)
+- **Lucidchart/Figma**: Export as SVG or PNG
+
+```mermaid
+graph LR
+    A[User] --> B[API Gateway]
+    B --> C[Backend Service]
+    C --> D[Database]
+```
+
+## Image Galleries
+
+Display multiple images using CardGroup:
+
+<CardGroup cols={2}>
+  <Card>
+    <Frame>
+      <img src="https://mintlify-assets.b-cdn.net/bigbend.jpg" alt="Feature 1" />
+    </Frame>
+  </Card>
+  <Card>
+    <Frame>
+      <img src="https://mintlify-assets.b-cdn.net/bigbend.jpg" alt="Feature 2" />
+    </Frame>
+  </Card>
+</CardGroup>
+
+```mdx
+<CardGroup cols={2}>
+  <Card>
+    <Frame>
+      <img src="/images/feature-1.png" alt="Feature 1" />
+    </Frame>
+  </Card>
+  <Card>
+    <Frame>
+      <img src="/images/feature-2.png" alt="Feature 2" />
+    </Frame>
+  </Card>
+</CardGroup>
+```
+
+## Accessibility
+
+<CardGroup cols={2}>
+  <Card title="Always include alt text" icon="universal-access">
+    Every image should have meaningful alt text for screen readers and SEO.
+  </Card>
+  <Card title="Use semantic HTML" icon="code">
+    Prefer `<img>` tags over background images for content.
+  </Card>
+  <Card title="Ensure sufficient contrast" icon="circle-half-stroke">
+    Test images against both light and dark backgrounds.
+  </Card>
+  <Card title="Provide text alternatives" icon="file-lines">
+    For complex diagrams, include a text description or table.
+  </Card>
+</CardGroup>
+
+## Troubleshooting
+
+<AccordionGroup>
+  <Accordion title="Image not displaying" icon="triangle-exclamation">
+    - Check the file path is correct (use root-relative paths like `/images/file.png`)
+    - Verify the image exists in your repository
+    - Ensure the file extension matches (case-sensitive on some systems)
+    - Check if the file size exceeds 5MB
+  </Accordion>
+
+  <Accordion title="Image quality is poor" icon="image">
+    - Upload higher resolution images
+    - Use PNG for screenshots instead of JPG
+    - Avoid excessive compression
+    - Use SVG for logos and diagrams
+  </Accordion>
+
+  <Accordion title="Images load slowly" icon="clock">
+    - Compress images before uploading
+    - Use a CDN for large media files
+    - Consider lazy loading for image-heavy pages
+    - Optimize image dimensions
+  </Accordion>
+</AccordionGroup>

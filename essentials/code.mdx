@@ -1,20 +1,41 @@
 ---
-title: 'Code blocks'
-description: 'Display inline code and code blocks'
-icon: 'code'
+title: 'Code Blocks'
+description: 'Display syntax-highlighted code with advanced features'
 ---
 
-## Inline code
+Mintlify provides powerful code block features with syntax highlighting, file names, line highlighting, and multi-language examples.
 
-To denote a `word` or `phrase` as code, enclose it in backticks (`).
+## Inline Code
 
+Wrap code in single backticks to display it inline: `const greeting = "Hello";`
+
+```md
+Wrap code in backticks: `const greeting = "Hello";`
 ```
-To denote a `word` or `phrase` as code, enclose it in backticks (`).
+
+## Basic Code Blocks
+
+Create code blocks using triple backticks with a language identifier:
+
+```javascript
+function greet(name) {
+  console.log(`Hello, ${name}!`);
+}
+
+greet("World");
 ```
 
-## Code blocks
+````md
+```javascript
+function greet(name) {
+  console.log(`Hello, ${name}!`);
+}
+```
+````
 
-Use [fenced code blocks](https://www.markdownguide.org/extended-syntax/#fenced-code-blocks) by enclosing code in three backticks and follow the leading ticks with the programming language of your snippet to get syntax highlighting. Optionally, you can also write the name of your code after the programming language.
+## Adding File Names
+
+Include a filename after the language to show what file the code belongs to:
 
 ```java HelloWorld.java
 class HelloWorld {
@@ -33,3 +54,241 @@ class HelloWorld {
 }
 ```
 ````
+
+## CodeGroup Component
+
+Display multiple code examples with tabs using the `<CodeGroup>` component:
+
+<CodeGroup>
+
+```javascript JavaScript
+fetch('https://api.example.com/data')
+  .then(response => response.json())
+  .then(data => console.log(data));
+```
+
+```python Python
+import requests
+
+response = requests.get('https://api.example.com/data')
+data = response.json()
+print(data)
+```
+
+```bash cURL
+curl https://api.example.com/data
+```
+
+</CodeGroup>
+
+````mdx
+<CodeGroup>
+
+```javascript JavaScript
+fetch('https://api.example.com/data')
+  .then(response => response.json())
+  .then(data => console.log(data));
+```
+
+```python Python
+import requests
+
+response = requests.get('https://api.example.com/data')
+data = response.json()
+```
+
+```bash cURL
+curl https://api.example.com/data
+```
+
+</CodeGroup>
+````
+
+## Line Highlighting
+
+Highlight specific lines to draw attention to important code:
+
+```javascript {3-5}
+function calculateTotal(items) {
+  let total = 0;
+  for (const item of items) {
+    total += item.price;
+  }
+  return total;
+}
+```
+
+````md
+```javascript {3-5}
+function calculateTotal(items) {
+  let total = 0;
+  for (const item of items) {
+    total += item.price;
+  }
+  return total;
+}
+```
+````
+
+Highlight individual lines or ranges:
+
+- Single line: `{3}`
+- Multiple lines: `{1,3,5}`
+- Range: `{3-8}`
+- Combined: `{1,3-5,8}`
+
+## Diff Syntax
+
+Show code changes using `+` and `-` prefixes:
+
+```diff
+function greet(name) {
+-  console.log("Hello!");
++  console.log(`Hello, ${name}!`);
+}
+```
+
+````md
+```diff
+function greet(name) {
+-  console.log("Hello!");
++  console.log(`Hello, ${name}!`);
+}
+```
+````
+
+## Line Numbers
+
+Add line numbers to your code blocks:
+
+```javascript showLineNumbers
+const users = [
+  { id: 1, name: 'Alice' },
+  { id: 2, name: 'Bob' },
+  { id: 3, name: 'Charlie' }
+];
+
+users.forEach(user => {
+  console.log(user.name);
+});
+```
+
+````md
+```javascript showLineNumbers
+const users = [
+  { id: 1, name: 'Alice' },
+  { id: 2, name: 'Bob' }
+];
+```
+````
+
+## Supported Languages
+
+Mintlify supports syntax highlighting for over 100 languages. Common languages include:
+
+<CardGroup cols={3}>
+  <Card title="JavaScript" icon="js">
+    `javascript`, `js`, `jsx`
+  </Card>
+  <Card title="TypeScript" icon="code">
+    `typescript`, `ts`, `tsx`
+  </Card>
+  <Card title="Python" icon="python">
+    `python`, `py`
+  </Card>
+  <Card title="Java" icon="java">
+    `java`
+  </Card>
+  <Card title="Go" icon="golang">
+    `go`, `golang`
+  </Card>
+  <Card title="Rust" icon="rust">
+    `rust`, `rs`
+  </Card>
+  <Card title="Shell" icon="terminal">
+    `bash`, `sh`, `shell`
+  </Card>
+  <Card title="SQL" icon="database">
+    `sql`
+  </Card>
+  <Card title="JSON" icon="brackets-curly">
+    `json`
+  </Card>
+  <Card title="YAML" icon="file-code">
+    `yaml`, `yml`
+  </Card>
+  <Card title="Markdown" icon="markdown">
+    `markdown`, `md`, `mdx`
+  </Card>
+  <Card title="HTML/CSS" icon="code">
+    `html`, `css`, `scss`
+  </Card>
+</CardGroup>
+
+## Best Practices
+
+<Note>
+**Always specify a language** for syntax highlighting. This improves readability and helps users understand the code context.
+</Note>
+
+<Tip>
+**Use CodeGroup for API examples** showing the same operation in different languages. This helps developers working in their preferred language.
+</Tip>
+
+<Warning>
+**Keep code blocks concise**. For lengthy code, consider linking to a GitHub repository or using expandable sections.
+</Warning>
+
+## Terminal Output
+
+For terminal commands and output, use `bash` or `shell`:
+
+```bash
+npm install mintlify
+```
+
+For multi-step terminal workflows:
+
+```bash
+# Install dependencies
+npm install
+
+# Start development server
+npm run dev
+
+# Build for production
+npm run build
+```
+
+## Configuration Files
+
+Show configuration with appropriate file names:
+
+```json docs.json
+{
+  "name": "Documentation",
+  "colors": {
+    "primary": "#0D9373"
+  },
+  "navigation": [
+    {
+      "group": "Getting Started",
+      "pages": ["quickstart"]
+    }
+  ]
+}
+```
+
+```yaml .github/workflows/deploy.yml
+name: Deploy Docs
+on:
+  push:
+    branches: [main]
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Deploy
+        run: npm run deploy
+```

@@ -1,19 +1,23 @@
 ---
-title: "Claude Code setup"
-description: "Configure Claude Code for your documentation workflow"
+title: "Claude Code"
+description: "Configure Claude Code for documentation writing"
 icon: "asterisk"
 ---
 
-Set up Claude Code to help you write and maintain your Mintlify documentation.
+Set up Claude Code to help you write and maintain your Mintlify documentation with advanced AI capabilities.
 
 ## Prerequisites
 
 - Active Claude subscription (Pro, Max, or API access)
+- Node.js installed for running the CLI
+- A Mintlify documentation project with `docs.json` in the root
 
 ## Setup
 
 <Steps>
 <Step title="Install Claude Code">
+  Install the Claude Code CLI globally:
+
   ```bash
   npm install -g @anthropic-ai/claude-code
   ```
@@ -33,11 +37,142 @@ Set up Claude Code to help you write and maintain your Mintlify documentation.
 <Step title="Customize project instructions">
   Edit `AGENTS.md` in your project root to add project-specific terminology,
   style preferences, and content boundaries.
+
+  <Accordion title="Example AGENTS.md customization">
+  ```markdown
+  ## Terminology
+  - Use "workspace" not "project"
+  - Use "member" not "user"
+  
+  ## Style preferences
+  - Keep code examples under 20 lines
+  - Always include a description in code blocks
+  - Use Tip components for best practices
+  ```
+  </Accordion>
 </Step>
 
 <Step title="Start writing with Claude Code">
+  Launch Claude Code in your docs directory:
+
   ```bash
   claude
   ```
 </Step>
 </Steps>
+
+## Usage workflows
+
+### Writing comprehensive guides
+
+Claude Code excels at writing detailed, structured documentation:
+
+<CodeGroup>
+```text Example prompt
+Write a complete guide on setting up webhooks, including:
+- Prerequisites
+- Step-by-step setup with proper Steps component
+- Code examples in multiple languages using CodeGroup
+- Common troubleshooting issues
+- Security best practices
+```
+</CodeGroup>
+
+### Updating existing pages
+
+Ask Claude Code to read and improve your documentation:
+
+<CodeGroup>
+```text Example prompt
+Read the authentication.mdx file and:
+1. Add missing error handling examples
+2. Convert the setup section to use Steps component
+3. Add a troubleshooting section
+4. Ensure all code blocks have language tags
+```
+</CodeGroup>
+
+### Maintaining consistency
+
+Claude Code can help ensure consistency across your docs:
+
+<CodeGroup>
+```text Example prompt
+Review all pages in the /api-reference folder and ensure they follow
+the same structure: overview, parameters, response, examples, errors.
+```
+</CodeGroup>
+
+## Key features
+
+<CardGroup cols={2}>
+<Card title="Multi-file editing" icon="files">
+  Claude Code can read and edit multiple files in a single conversation,
+  perfect for maintaining consistency.
+</Card>
+
+<Card title="Codebase awareness" icon="brain">
+  References your actual codebase to generate accurate API documentation
+  and code examples.
+</Card>
+
+<Card title="Complex workflows" icon="diagram-project">
+  Handles complex documentation tasks like restructuring navigation,
+  migrating content, and bulk updates.
+</Card>
+
+<Card title="Tool integration" icon="wrench">
+  Can run commands like `mint dev` and `mint broken-links` to verify
+  your documentation.
+</Card>
+</CardGroup>
+
+## Tips for best results
+
+<Tip>
+  Be specific about which Mintlify components you want to use. Claude Code
+  knows about Steps, CodeGroup, Card, Accordion, Note, Tip, and more.
+</Tip>
+
+- Start conversations with clear objectives
+- Reference the Mintlify skill when asking component-specific questions
+- Ask Claude Code to validate MDX syntax and frontmatter
+- Use iterative refinement for complex pages
+
+## Preview your changes
+
+Claude Code can start the dev server for you:
+
+<CodeGroup>
+```text Example prompt
+Start the Mintlify dev server so I can preview my changes
+```
+</CodeGroup>
+
+Or run it manually:
+
+```bash
+mint dev
+```
+
+View your local preview at `http://localhost:3000`.
+
+## Troubleshooting
+
+<Accordion title="Claude Code not recognizing Mintlify components">
+  Make sure you've installed the Mintlify skill:
+  
+  ```bash
+  npx skills add https://mintlify.com/docs
+  ```
+  
+  Restart Claude Code after installation.
+</Accordion>
+
+<Accordion title="Generated MDX has syntax errors">
+  Ask Claude Code to validate the MDX:
+  
+  ```text
+  Check the MDX syntax and fix any errors in the file you just created
+  ```
+</Accordion>

@@ -1,6 +1,6 @@
 ---
-title: 'Introduction'
-description: 'Example section for showcasing API endpoints'
+title: 'API Documentation'
+description: 'Learn how to integrate API documentation into Mintlify'
 ---
 
 <Note>
@@ -10,7 +10,7 @@ description: 'Example section for showcasing API endpoints'
 
 ## Welcome
 
-There are two ways to build API documentation: [OpenAPI](https://mintlify.com/docs/api-playground/openapi/setup) and [MDX components](https://mintlify.com/docs/api-playground/mdx/configuration). For the starter kit, we are using the following OpenAPI specification.
+There are two ways to build API documentation: [OpenAPI](https://mintlify.com/docs/api-playground/openapi/setup) and [MDX components](https://mintlify.com/docs/api-playground/mdx/configuration). For the starter kit, we are using the OpenAPI specification.
 
 <Card
   title="Plant Store Endpoints"
@@ -31,3 +31,68 @@ All API endpoints are authenticated using Bearer tokens and picked up from the s
   }
 ]
 ```
+
+## Base URL
+
+All API requests should be made to:
+
+```bash
+http://sandbox.mintlify.com
+```
+
+## Getting Started
+
+To get started with the Plant Store API:
+
+1. **Obtain an API key** - Contact your administrator for a Bearer token
+2. **Make your first request** - Try the [Get Plants](/api-reference/endpoint/get) endpoint
+3. **Explore the endpoints** - Check out all available operations below
+
+<CardGroup cols={2}>
+  <Card
+    title="Get Plants"
+    icon="list"
+    href="/api-reference/endpoint/get"
+  >
+    Retrieve all plants from the store
+  </Card>
+  <Card
+    title="Create Plant"
+    icon="plus"
+    href="/api-reference/endpoint/create"
+  >
+    Add a new plant to the store
+  </Card>
+  <Card
+    title="Delete Plant"
+    icon="trash"
+    href="/api-reference/endpoint/delete"
+  >
+    Remove a plant from the store
+  </Card>
+  <Card
+    title="Webhooks"
+    icon="webhook"
+    href="/api-reference/endpoint/webhook"
+  >
+    Receive notifications about new plants
+  </Card>
+</CardGroup>
+
+## OpenAPI Integration
+
+Mintlify can automatically generate API documentation from your OpenAPI specification file. Simply reference the OpenAPI endpoint in your page frontmatter:
+
+```yaml
+---
+title: 'Get Plants'
+openapi: 'GET /plants'
+---
+```
+
+This will automatically generate:
+- Parameter documentation
+- Request body schemas
+- Response examples
+- Interactive API playground
+- Code examples in multiple languages

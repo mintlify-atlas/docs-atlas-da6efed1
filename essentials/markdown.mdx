@@ -1,88 +1,234 @@
 ---
-title: 'Markdown syntax'
-description: 'Text, title, and styling in standard markdown'
-icon: 'text-size'
+title: 'Markdown & MDX'
+description: 'Write content with Markdown and enhance it with MDX components'
 ---
 
-## Titles
+Mintlify uses MDX, which combines standard Markdown with powerful React components. This allows you to write clean, readable content while adding interactive elements where needed.
 
-Best used for section headers.
+## Basic Markdown Syntax
 
-```md
-## Titles
-```
+### Headings
 
-### Subtitles
-
-Best used for subsection headers.
+Use `##` for section headers and `###` for subsections:
 
 ```md
-### Subtitles
+## Section Header
+
+### Subsection Header
 ```
 
 <Tip>
-
-Each **title** and **subtitle** creates an anchor and also shows up on the table of contents on the right.
-
+Each heading creates an anchor link and appears in the table of contents on the right side of the page.
 </Tip>
 
-## Text formatting
+### Text Formatting
 
-We support most markdown formatting. Simply add `**`, `_`, or `~` around text to format it.
+Format text using simple markdown syntax:
 
-| Style         | How to write it   | Result          |
+| Style         | Syntax            | Result          |
 | ------------- | ----------------- | --------------- |
 | Bold          | `**bold**`        | **bold**        |
 | Italic        | `_italic_`        | _italic_        |
 | Strikethrough | `~strikethrough~` | ~strikethrough~ |
 
-You can combine these. For example, write `**_bold and italic_**` to get **_bold and italic_** text.
+You can combine these styles. For example, `**_bold and italic_**` produces **_bold and italic_** text.
 
-You need to use HTML to write superscript and subscript text. That is, add `<sup>` or `<sub>` around your text.
+For superscript and subscript, use HTML tags:
 
-| Text Size   | How to write it          | Result                 |
+| Style       | Syntax                   | Result                 |
 | ----------- | ------------------------ | ---------------------- |
 | Superscript | `<sup>superscript</sup>` | <sup>superscript</sup> |
 | Subscript   | `<sub>subscript</sub>`   | <sub>subscript</sub>   |
 
-## Linking to pages
+### Links
 
-You can add a link by wrapping text in `[]()`. You would write `[link to google](https://google.com)` to [link to google](https://google.com).
-
-Links to pages in your docs need to be root-relative. Basically, you should include the entire folder path. For example, `[link to text](/writing-content/text)` links to the page "Text" in our components section.
-
-Relative links like `[link to text](../text)` will open slower because we cannot optimize them as easily.
-
-## Blockquotes
-
-### Singleline
-
-To create a blockquote, add a `>` in front of a paragraph.
-
-> Dorothy followed her through many of the beautiful rooms in her castle.
+Create links by wrapping text in `[text](url)` format:
 
 ```md
-> Dorothy followed her through many of the beautiful rooms in her castle.
+[Link to Google](https://google.com)
 ```
 
-### Multiline
+<Note>
+For internal links, use root-relative paths like `/essentials/code` instead of relative paths like `../code`. This allows Mintlify to optimize page loading.
+</Note>
 
-> Dorothy followed her through many of the beautiful rooms in her castle.
->
-> The Witch bade her clean the pots and kettles and sweep the floor and keep the fire fed with wood.
+### Blockquotes
+
+Create blockquotes with the `>` character:
 
 ```md
-> Dorothy followed her through many of the beautiful rooms in her castle.
->
-> The Witch bade her clean the pots and kettles and sweep the floor and keep the fire fed with wood.
+> Single line blockquote
 ```
 
-### LaTeX
+For multiline blockquotes, use `>` on each line:
 
-Mintlify supports [LaTeX](https://www.latex-project.org) through the Latex component.
+```md
+> This is the first line of the blockquote.
+>
+> This is the second paragraph in the same blockquote.
+```
+
+### Lists
+
+Create unordered lists with `-` or `*`:
+
+```md
+- First item
+- Second item
+- Third item
+```
+
+Create ordered lists with numbers:
+
+```md
+1. First step
+2. Second step
+3. Third step
+```
+
+## MDX Components
+
+Mintlify provides special components to enhance your documentation.
+
+### Callout Components
+
+Highlight important information with callout components:
+
+<Note>
+This is a note. Use it for helpful information that supports the main content.
+</Note>
+
+```mdx
+<Note>
+This is a note. Use it for helpful information.
+</Note>
+```
+
+<Tip>
+This is a tip. Use it for best practices and helpful suggestions.
+</Tip>
+
+```mdx
+<Tip>
+This is a tip. Use it for best practices.
+</Tip>
+```
+
+<Warning>
+This is a warning. Use it to alert users about potential issues.
+</Warning>
+
+```mdx
+<Warning>
+This is a warning. Use it to alert users about potential issues.
+</Warning>
+```
+
+<Info>
+This is an info callout. Use it for prerequisite information or context.
+</Info>
+
+```mdx
+<Info>
+This is an info callout. Use it for prerequisites or context.
+</Info>
+```
+
+### Card Components
+
+Organize content with cards. Use `<CardGroup>` to display multiple cards:
+
+<CardGroup cols={2}>
+  <Card title="First Feature" icon="rocket" href="/quickstart">
+    Description of the first feature
+  </Card>
+  <Card title="Second Feature" icon="code" href="/essentials/code">
+    Description of the second feature
+  </Card>
+</CardGroup>
+
+```mdx
+<CardGroup cols={2}>
+  <Card title="First Feature" icon="rocket" href="/quickstart">
+    Description of the first feature
+  </Card>
+  <Card title="Second Feature" icon="code" href="/essentials/code">
+    Description of the second feature
+  </Card>
+</CardGroup>
+```
+
+### Accordion Components
+
+Create expandable sections with accordions:
+
+<AccordionGroup>
+  <Accordion title="What is Mintlify?" icon="question">
+    Mintlify is a modern documentation platform that helps you create beautiful, functional docs.
+  </Accordion>
+  <Accordion title="How do I get started?" icon="rocket">
+    Follow our quickstart guide to set up your docs in minutes.
+  </Accordion>
+</AccordionGroup>
+
+```mdx
+<AccordionGroup>
+  <Accordion title="What is Mintlify?" icon="question">
+    Content goes here.
+  </Accordion>
+  <Accordion title="How do I get started?" icon="rocket">
+    More content here.
+  </Accordion>
+</AccordionGroup>
+```
+
+### Steps Component
+
+Create step-by-step instructions:
+
+<Steps>
+  <Step title="First Step">
+    Complete the first task.
+  </Step>
+  <Step title="Second Step">
+    Complete the second task.
+  </Step>
+</Steps>
+
+```mdx
+<Steps>
+  <Step title="First Step">
+    Complete the first task.
+  </Step>
+  <Step title="Second Step">
+    Complete the second task.
+  </Step>
+</Steps>
+```
+
+### LaTeX Support
+
+Display mathematical formulas with the `<Latex>` component:
 
 <Latex>8 x (vk x H1 - H2) = (0,1)</Latex>
 
-```md
+```mdx
 <Latex>8 x (vk x H1 - H2) = (0,1)</Latex>
 ```
+
+## Best Practices
+
+<CardGroup cols={2}>
+  <Card title="Keep it simple" icon="check">
+    Use basic Markdown for most content. Add components only when they improve clarity.
+  </Card>
+  <Card title="Use semantic headings" icon="heading">
+    Structure content with proper heading hierarchy (H2, H3, H4).
+  </Card>
+  <Card title="Choose the right callout" icon="message">
+    Use Note for helpful info, Tip for best practices, Warning for cautions, and Info for prerequisites.
+  </Card>
+  <Card title="Test locally" icon="eye">
+    Preview changes with `mint dev` before committing.
+  </Card>
+</CardGroup>

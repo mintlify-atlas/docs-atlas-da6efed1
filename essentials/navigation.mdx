@@ -1,28 +1,47 @@
 ---
 title: 'Navigation'
-description: 'The navigation field in docs.json defines the pages that go in the navigation menu'
-icon: 'map'
+description: 'Structure your documentation with tabs, groups, and pages'
 ---
 
-The navigation menu is the list of links on every website.
+The `navigation` field in `docs.json` defines the structure of your documentation site. Every page must be listed in the navigation to appear in the sidebar.
 
-You will likely update `docs.json` every time you add a new page. Pages do not show up automatically.
+<Tip>
+  You will update `docs.json` every time you add a new page. Pages do not show up automatically.
+</Tip>
 
-## Navigation syntax
+## Navigation Structure
 
-Our navigation syntax is recursive which means you can make nested navigation groups. You don't need to include `.mdx` in page names.
+Mintlify uses a hierarchical navigation system with three main levels:
 
-<CodeGroup>
+<CardGroup cols={3}>
+  <Card title="Tabs" icon="folder">
+    Top-level sections of your documentation
+  </Card>
+  <Card title="Groups" icon="layer-group">
+    Organize related pages within a tab
+  </Card>
+  <Card title="Pages" icon="file">
+    Individual MDX files in your docs
+  </Card>
+</CardGroup>
 
-```json Regular Navigation
+## Basic Navigation
+
+Here's a simple navigation structure with one tab and one group:
+
+```json
 "navigation": {
   "tabs": [
     {
-      "tab": "Docs",
+      "tab": "Guides",
       "groups": [
         {
-          "group": "Getting Started",
-          "pages": ["quickstart"]
+          "group": "Getting started",
+          "pages": [
+            "index",
+            "quickstart",
+            "development"
+          ]
         }
       ]
     }
@@ -30,7 +49,56 @@ Our navigation syntax is recursive which means you can make nested navigation gr
 }
 ```
 
-```json Nested Navigation
+<Note>
+  You don't need to include `.mdx` in page names. Mintlify automatically resolves the file extension.
+</Note>
+
+## Multiple Tabs
+
+Tabs allow you to organize your documentation into distinct sections. Here's an example with multiple tabs:
+
+```json
+"navigation": {
+  "tabs": [
+    {
+      "tab": "Guides",
+      "groups": [
+        {
+          "group": "Getting started",
+          "pages": ["index", "quickstart", "development"]
+        },
+        {
+          "group": "Customization",
+          "pages": ["essentials/settings", "essentials/navigation"]
+        }
+      ]
+    },
+    {
+      "tab": "API reference",
+      "groups": [
+        {
+          "group": "API documentation",
+          "pages": ["api-reference/introduction"]
+        },
+        {
+          "group": "Endpoint examples",
+          "pages": [
+            "api-reference/endpoint/get",
+            "api-reference/endpoint/create",
+            "api-reference/endpoint/delete"
+          ]
+        }
+      ]
+    }
+  ]
+}
+```
+
+## Nested Navigation
+
+Mintlify's navigation syntax is recursive, allowing you to create nested groups within pages:
+
+```json
 "navigation": {
   "tabs": [
     {
@@ -41,8 +109,11 @@ Our navigation syntax is recursive which means you can make nested navigation gr
           "pages": [
             "quickstart",
             {
-              "group": "Nested Reference Pages",
-              "pages": ["nested-reference-page"]
+              "group": "Advanced Topics",
+              "pages": [
+                "advanced/authentication",
+                "advanced/caching"
+              ]
             }
           ]
         }
@@ -52,29 +123,28 @@ Our navigation syntax is recursive which means you can make nested navigation gr
 }
 ```
 
-</CodeGroup>
+<Tip>
+  Nested groups are perfect for organizing complex topics or creating sub-sections within a larger group.
+</Tip>
 
-## Folders
+## Working with Folders
 
-Simply put your MDX files in folders and update the paths in `docs.json`.
+Organize your MDX files in folders and reference them using relative paths:
 
-For example, to have a page at `https://yoursite.com/your-folder/your-page` you would make a folder called `your-folder` containing an MDX file called `your-page.mdx`.
-
-<Warning>
-
-You cannot use `api` for the name of a folder unless you nest it inside another folder. Mintlify uses Next.js which reserves the top-level `api` folder for internal server calls. A folder name such as `api-reference` would be accepted.
-
-</Warning>
-
-```json Navigation With Folder
+```json
 "navigation": {
   "tabs": [
     {
-      "tab": "Docs",
+      "tab": "Guides",
       "groups": [
         {
-          "group": "Group Name",
-          "pages": ["your-folder/your-page"]
+          "group": "Writing content",
+          "pages": [
+            "essentials/markdown",
+            "essentials/code",
+            "essentials/images",
+            "essentials/reusable-snippets"
+          ]
         }
       ]
     }
@@ -82,6 +152,183 @@ You cannot use `api` for the name of a folder unless you nest it inside another 
 }
 ```
 
-## Hidden pages
+For a page at `https://yoursite.com/your-folder/your-page`, create a folder called `your-folder` containing `your-page.mdx`.
 
-MDX files not included in `docs.json` will not show up in the sidebar but are accessible through the search bar and by linking directly to them.
+<Warning>
+  You cannot use `api` as a top-level folder name. Next.js reserves this for internal server calls. Use names like `api-reference` or nest it inside another folder.
+</Warning>
+
+## Global Navigation
+
+Global navigation appears for all tabs and includes anchors to external resources:
+
+```json
+"navigation": {
+  "tabs": [
+    // ... your tabs
+  ],
+  "global": {
+    "anchors": [
+      {
+        "anchor": "Documentation",
+        "href": "https://mintlify.com/docs",
+        "icon": "book-open-cover"
+      },
+      {
+        "anchor": "Blog",
+        "href": "https://mintlify.com/blog",
+        "icon": "newspaper"
+      }
+    ]
+  }
+}
+```
+
+### Anchor Properties
+
+<ParamField path="anchor" type="string" required>
+  The display name for the anchor
+</ParamField>
+
+<ParamField path="href" type="string" required>
+  The URL the anchor links to (can be internal or external)
+</ParamField>
+
+<ParamField path="icon" type="string" required>
+  Font Awesome icon name (e.g., `"book-open-cover"`, `"newspaper"`)
+</ParamField>
+
+<ParamField path="color" type="string">
+  Hex color for the anchor icon background. Can be a gradient with `from` and `to` properties
+</ParamField>
+
+<ParamField path="iconType" type="string" default="duotone">
+  Icon style: `"brands"`, `"duotone"`, `"light"`, `"sharp-solid"`, `"solid"`, or `"thin"`
+</ParamField>
+
+## Hidden Pages
+
+MDX files not included in `docs.json` navigation will not appear in the sidebar, but remain accessible:
+
+- Through the search bar
+- By linking directly to them
+- In sitemaps for SEO
+
+```mdx Example Usage
+Check out our [hidden troubleshooting guide](/troubleshooting) for more help.
+```
+
+<Tip>
+  Use hidden pages for supplementary content, troubleshooting guides, or pages that don't fit neatly into your main navigation structure.
+</Tip>
+
+## Top Anchor Customization
+
+Override the default settings for the top-most anchor (usually "Documentation"):
+
+```json
+"topAnchor": {
+  "name": "Documentation",
+  "icon": "book-open",
+  "iconType": "duotone"
+}
+```
+
+## Real-World Example
+
+Here's the complete navigation structure from the Mintlify Starter Kit:
+
+```json
+"navigation": {
+  "tabs": [
+    {
+      "tab": "Guides",
+      "groups": [
+        {
+          "group": "Getting started",
+          "pages": [
+            "index",
+            "quickstart",
+            "development"
+          ]
+        },
+        {
+          "group": "Customization",
+          "pages": [
+            "essentials/settings",
+            "essentials/navigation"
+          ]
+        },
+        {
+          "group": "Writing content",
+          "pages": [
+            "essentials/markdown",
+            "essentials/code",
+            "essentials/images",
+            "essentials/reusable-snippets"
+          ]
+        },
+        {
+          "group": "AI tools",
+          "pages": [
+            "ai-tools/cursor",
+            "ai-tools/claude-code",
+            "ai-tools/windsurf"
+          ]
+        }
+      ]
+    },
+    {
+      "tab": "API reference",
+      "groups": [
+        {
+          "group": "API documentation",
+          "pages": [
+            "api-reference/introduction"
+          ]
+        },
+        {
+          "group": "Endpoint examples",
+          "pages": [
+            "api-reference/endpoint/get",
+            "api-reference/endpoint/create",
+            "api-reference/endpoint/delete",
+            "api-reference/endpoint/webhook"
+          ]
+        }
+      ]
+    }
+  ],
+  "global": {
+    "anchors": [
+      {
+        "anchor": "Documentation",
+        "href": "https://mintlify.com/docs",
+        "icon": "book-open-cover"
+      },
+      {
+        "anchor": "Blog",
+        "href": "https://mintlify.com/blog",
+        "icon": "newspaper"
+      }
+    ]
+  }
+}
+```
+
+## Best Practices
+
+<CardGroup cols={2}>
+  <Card title="Logical Grouping" icon="sitemap">
+    Group related pages together under descriptive group names that reflect the user journey
+  </Card>
+  <Card title="Clear Naming" icon="tag">
+    Use clear, concise names for tabs and groups that immediately convey the content
+  </Card>
+  <Card title="Shallow Hierarchy" icon="layer-group">
+    Keep nesting to 2-3 levels maximum for better discoverability
+  </Card>
+  <Card title="Consistent Order" icon="list-ol">
+    Order pages logically (e.g., from basic to advanced topics)
+  </Card>
+</CardGroup>

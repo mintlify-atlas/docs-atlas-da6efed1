@@ -1,14 +1,15 @@
 ---
-title: "Cursor setup"
-description: "Configure Cursor for your documentation workflow"
+title: "Cursor"
+description: "Set up Cursor to work with Mintlify documentation"
 icon: "arrow-pointer"
 ---
 
-Set up Cursor to help you write and maintain your Mintlify documentation.
+Set up Cursor to help you write and maintain your Mintlify documentation with AI-powered assistance.
 
 ## Prerequisites
 
 - Cursor editor installed
+- A Mintlify documentation project with `docs.json` in the root
 
 ## Setup
 
@@ -31,9 +32,80 @@ Set up Cursor to help you write and maintain your Mintlify documentation.
 <Step title="Customize project instructions">
   Edit `AGENTS.md` in your project root to add project-specific terminology,
   style preferences, and content boundaries.
+
+  <Tip>
+  The `AGENTS.md` file helps Cursor understand your specific documentation needs,
+  terminology, and style preferences.
+  </Tip>
 </Step>
 
 <Step title="Start writing with Cursor">
   Open a file and use Cursor's AI features to draft and edit documentation.
+  
+  Press `Cmd+K` (Mac) or `Ctrl+K` (Windows/Linux) to invoke Cursor's inline editing.
 </Step>
 </Steps>
+
+## Usage
+
+### Writing new pages
+
+Use Cursor to generate documentation pages with proper Mintlify components:
+
+<CodeGroup>
+```text Example prompt
+Create a new page about API authentication using proper Mintlify components
+like Steps, CodeGroup, and Note components.
+```
+</CodeGroup>
+
+### Editing existing content
+
+Select text in your MDX files and use `Cmd+K` or `Ctrl+K` to:
+
+- Improve clarity and conciseness
+- Add code examples
+- Restructure sections
+- Convert to Mintlify components
+
+## Tips
+
+<CardGroup cols={2}>
+<Card title="Use Chat for planning" icon="comments">
+  Use Cursor's chat panel (`Cmd+L` or `Ctrl+L`) to discuss documentation structure before writing.
+</Card>
+
+<Card title="Reference docs.json" icon="brackets-curly">
+  Ask Cursor to check your `docs.json` when adding new pages to ensure proper navigation setup.
+</Card>
+
+<Card title="Leverage codebase context" icon="code">
+  Cursor can reference your actual codebase to write accurate API documentation.
+</Card>
+
+<Card title="Iterate with feedback" icon="rotate">
+  Use follow-up prompts to refine generated content until it matches your style.
+</Card>
+</CardGroup>
+
+## Best practices
+
+<Note>
+  Always review AI-generated content for accuracy, especially technical details,
+  code examples, and API references.
+</Note>
+
+- Start with the Mintlify skill installed for best results
+- Keep `AGENTS.md` updated with your terminology and style preferences
+- Use specific prompts that reference Mintlify components by name
+- Review and test all code examples before publishing
+
+## Preview your changes
+
+Run the Mintlify dev server to preview your documentation:
+
+```bash
+mint dev
+```
+
+View your local preview at `http://localhost:3000`.

@@ -1,6 +1,6 @@
 ---
-title: "Windsurf setup"
-description: "Configure Windsurf for your documentation workflow"
+title: "Windsurf"
+description: "Use Windsurf with your Mintlify project"
 icon: "water"
 ---
 
@@ -9,6 +9,7 @@ Set up Windsurf's Cascade AI assistant to help you write and maintain your Mintl
 ## Prerequisites
 
 - Windsurf editor installed
+- A Mintlify documentation project with `docs.json` in the root
 
 ## Setup
 
@@ -31,9 +32,171 @@ Set up Windsurf's Cascade AI assistant to help you write and maintain your Mintl
 <Step title="Customize project instructions">
   Edit `AGENTS.md` in your project root to add project-specific terminology,
   style preferences, and content boundaries.
+
+  <Note>
+  Windsurf's Cascade reads `AGENTS.md` to understand your project's
+  unique requirements and style preferences.
+  </Note>
 </Step>
 
 <Step title="Start writing with Cascade">
   Open a file and use Cascade to draft and edit documentation.
+  
+  Use `Cmd+L` (Mac) or `Ctrl+L` (Windows/Linux) to open the Cascade panel.
 </Step>
 </Steps>
+
+## Using Cascade
+
+### Flow mode for documentation writing
+
+Cascade's Flow mode is ideal for writing documentation:
+
+<CodeGroup>
+```text Example prompt
+Create a new getting started guide with:
+- Overview section
+- Prerequisites
+- Installation steps using the Steps component
+- A quickstart example with code
+- Next steps with Card components
+```
+</CodeGroup>
+
+<Tip>
+  Flow mode allows Cascade to autonomously create and edit files while you
+  review and approve changes in real-time.
+</Tip>
+
+### Chat mode for quick edits
+
+Use Chat mode for targeted improvements:
+
+<CodeGroup>
+```text Example prompt
+Improve the code examples in this page by:
+1. Adding language tags to all code blocks
+2. Grouping related examples with CodeGroup
+3. Adding explanatory comments
+```
+</CodeGroup>
+
+## Key capabilities
+
+<CardGroup cols={2}>
+<Card title="Real-time collaboration" icon="users">
+  Watch as Cascade writes and edits your documentation in real-time
+  with Flow mode.
+</Card>
+
+<Card title="Multi-file operations" icon="layer-group">
+  Cascade can work across multiple files, perfect for large documentation
+  updates.
+</Card>
+
+<Card title="Context awareness" icon="magnifying-glass">
+  Cascade understands your entire codebase and can generate accurate
+  technical documentation.
+</Card>
+
+<Card title="Integrated preview" icon="eye">
+  Use the built-in terminal to run `mint dev` and preview changes
+  without leaving Windsurf.
+</Card>
+</CardGroup>
+
+## Workflow examples
+
+### Creating a new documentation section
+
+<Steps>
+<Step title="Ask Cascade to plan the structure">
+  ```text
+  Help me plan a new API reference section. What pages should I include
+  and how should I structure the navigation in docs.json?
+  ```
+</Step>
+
+<Step title="Generate the pages">
+  ```text
+  Create the API reference pages we discussed, using proper Mintlify
+  components and following the structure in AGENTS.md.
+  ```
+</Step>
+
+<Step title="Update navigation">
+  ```text
+  Update docs.json to add the new API reference pages to the navigation
+  under a new "API Reference" group.
+  ```
+</Step>
+</Steps>
+
+### Improving existing documentation
+
+<CodeGroup>
+```text Example prompt
+Review all pages in the /guides folder and:
+- Ensure consistent heading structure
+- Add missing code examples where referenced
+- Convert plain text instructions to Steps components
+- Add Tip or Note components for important information
+```
+</CodeGroup>
+
+## Tips for working with Cascade
+
+<Tip>
+  Use Flow mode for complex, multi-file tasks. Use Chat mode for quick
+  questions and single-file edits.
+</Tip>
+
+- Enable Cascade's file tree access to help it navigate your docs structure
+- Reference specific Mintlify components by name in your prompts
+- Ask Cascade to explain its changes if you're unsure about edits
+- Use the diff view to review changes before accepting them
+
+## Preview your changes
+
+Run the Mintlify dev server in Windsurf's integrated terminal:
+
+```bash
+mint dev
+```
+
+View your local preview at `http://localhost:3000`.
+
+## Advanced usage
+
+<Accordion title="Bulk content migration">
+  Cascade can help migrate content from other formats:
+  
+  ```text
+  Convert all Markdown files in /old-docs to Mintlify MDX format with:
+  - Proper frontmatter (title, description)
+  - Mintlify components instead of plain markdown
+  - Updated image paths
+  - Language tags on all code blocks
+  ```
+</Accordion>
+
+<Accordion title="Navigation management">
+  Ask Cascade to manage your docs.json navigation:
+  
+  ```text
+  Reorganize the navigation in docs.json to group pages by user journey:
+  Getting Started, Core Concepts, Guides, API Reference, Advanced Topics
+  ```
+</Accordion>
+
+<Accordion title="Consistency checks">
+  Use Cascade to maintain consistency:
+  
+  ```text
+  Check all documentation pages and ensure:
+  - Every page has a title and description in frontmatter
+  - All code blocks have language tags
+  - Steps are used for sequential instructions
+  - Card components are used for feature showcases
+  ```
+</Accordion>
